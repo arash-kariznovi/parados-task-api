@@ -30,6 +30,7 @@ const createText = async (req, res, next) => {
 
   const response = await db.collection('records').doc(uuid()).set({
     text: text,
+    id: uuid(),
   })
 
   res.send({ result: 'successful', response })
@@ -40,19 +41,14 @@ const readText = async (req, res, next) => {
   const texts = db.collection('records')
   const docs = await texts.get()
 
-  const response = []
+  const responses = []
   docs.forEach((doc) => {
     console.log(doc.data())
     response.push(doc.data())
   })
 
-  res.status(200).send(response)
+  res.status(200).send(responses)
 }
-
-
-
-
-
 
 exports.createText = createText
 exports.readText = readText
