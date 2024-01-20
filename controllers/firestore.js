@@ -25,12 +25,16 @@ const db = getFirestore()
 
 // create a record
 const createText = async (req, res, next) => {
-  console.log(req.body)
+  // console.log(req.body)
   const { text } = req.body
+
+  // const docs = await texts.get()
+  // console.log(docs)
 
   const response = await db.collection('records').doc(uuid()).set({
     text: text,
     id: uuid(),
+    createdAt: new Date(),
   })
 
   res.send({ result: 'successful', response })
@@ -40,7 +44,7 @@ const createText = async (req, res, next) => {
 const readText = async (req, res, next) => {
   const texts = db.collection('records')
   const docs = await texts.get()
-
+  console.log(docs)
   const responses = []
   docs.forEach((doc) => {
     console.log(doc.data())
