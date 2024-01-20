@@ -47,7 +47,7 @@ const readText = async (req, res, next) => {
     response.push(doc.data())
   })
 
-  res.status(200).send(responses)
+  res.status(200).json({ responses })
 }
 
 exports.createText = createText
