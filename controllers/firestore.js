@@ -44,8 +44,10 @@ const readText = async (req, res, next) => {
   const responses = []
   docs.forEach((doc) => {
     console.log(doc.data())
-    response.push(doc.data())
+    responses.push(doc.data())
   })
+
+  console.log(responses)
 
   res.status(200).json({ responses })
 }
