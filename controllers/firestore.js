@@ -53,12 +53,7 @@ const readText = async (req, res, next) => {
 
   console.log(responses)
 
-  const sortedData = responses.sort(
-    (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
-  )
-
-  console.log(sortedData)
-  res.status(200).json({ sortedData })
+  res.status(200).json({ responses })
 }
 
 exports.createText = createText
