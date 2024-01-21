@@ -9,7 +9,7 @@ const firebase = require('firebase/app')
 const firebaseConfig = require('../firestorage-creds.json')
 
 // web app's Firebase configuration
-const firebaseConfig = firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig)
 // Create a root reference
 const storage = getStorage()
 
