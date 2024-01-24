@@ -19,6 +19,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.3",
     "punycode": "^2.3.1",
+    "react-particles": "^2.12.2",
     "uuid": "^9.0.1"
   }
 }
