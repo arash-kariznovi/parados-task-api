@@ -12,11 +12,15 @@ const db = getFirestore()
 const createText = async (req, res, next) => {
   const { text } = req.body
 
-  const response = await db.collection('records').doc(uuid()).set({
-    text: text,
-    id: uuid(),
-    createdAt: new Date(),
-  })
+  try {
+    const response = await db.collection('records').doc(uuid()).set({
+      text: text,
+      id: uuid(),
+      createdAt: new Date(),
+    })
+  } catch (error) {
+    res.status(400).send({ error: error.message })
+  }
 
   res.send({ result: 'successful', response })
 }
@@ -32,7 +36,7 @@ const readText = async (req, res, next) => {
       responses.push(doc.data())
     })
   } catch (error) {
-    res.status(440)
+    res.status(440).send({ error: error.message })
   }
 
   res.status(200).json({ responses })
