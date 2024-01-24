@@ -25,16 +25,13 @@ const createText = async (req, res, next) => {
 // GET records API
 const readText = async (req, res, next) => {
   const responses = []
-  try {
-    const texts = db.collection('records')
-    const docs = await texts.get()
 
-    docs.forEach((doc) => {
-      responses.push(doc.data())
-    })
-  } catch (error) {
-    res.status(440).send({ error: error.message })
-  }
+  const texts = db.collection('records')
+  const docs = await texts.get()
+
+  docs.forEach((doc) => {
+    responses.push(doc.data())
+  })
 
   res.status(200).json({ responses })
 }
