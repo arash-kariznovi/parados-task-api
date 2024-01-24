@@ -15,16 +15,12 @@ const storage = getStorage()
 
 // POST file API
 const uploadFile = async (req, res, next) => {
-  try {
-    // Create a reference
-    const storageRef = ref(storage, `files/${req.file.originalname}`)
+  // Create a reference
+  const storageRef = ref(storage, `files/${req.file.originalname}`)
 
-    uploadBytes(storageRef, req.file.buffer).then((ss) => {
-      console.log('file is uploaded.')
-    })
-  } catch (error) {
-    res.status(400).send({ error: error.message })
-  }
+  uploadBytes(storageRef, req.file.buffer).then((ss) => {
+    console.log('file is uploaded.')
+  })
 
   return res.json({ res: 'API for uploading files' })
 }
@@ -46,7 +42,7 @@ const showFiles = async (req, res, next) => {
 
     fileData = await Promise.all(all)
   } catch (error) {
-    res.status(400).send({ error: error.message })
+    res.status(400).json({ error: error.message })
   }
 
   return res.json({ res: fileData })
