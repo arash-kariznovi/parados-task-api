@@ -15,29 +15,39 @@ const storage = getStorage()
 
 // POST file API
 const uploadFile = async (req, res, next) => {
-  // Create a reference
-  const storageRef = ref(storage, `files/${req.file.originalname}`)
+  try {
+    // Create a reference
+    const storageRef = ref(storage, `files/${req.file.originalname}`)
 
-  uploadBytes(storageRef, req.file.buffer).then((ss) => {
-    console.log('file is uploaded.')
-  })
+    uploadBytes(storageRef, req.file.buffer).then((ss) => {
+      console.log('file is uploaded.')
+    })
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
 
   return res.json({ res: 'API for uploading files' })
 }
 
 // GET files API
 const showFiles = async (req, res, next) => {
-  // Find all the prefixes and items.
-  const listRef = ref(storage, `files/`)
+  const fileData = []
 
-  const result = await listAll(listRef)
+  try {
+    // Find all the prefixes and items.
+    const listRef = ref(storage, `files/`)
 
-  const all = result.items.map(async (item) => {
-    const url = await getDownloadURL(ref(storage, `files/${item.name}`))
-    return { name: item.name, url }
-  })
+    const result = await listAll(listRef)
 
-  const fileData = await Promise.all(all)
+    const all = result.items.map(async (item) => {
+      const url = await getDownloadURL(ref(storage, `files/${item.name}`))
+      return { name: item.name, url }
+    })
+
+    fileData = await Promise.all(all)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
 
   return res.json({ res: fileData })
 }
