@@ -22,7 +22,7 @@ const createText = async (req, res, next) => {
     res.status(400).send({ error: error.message })
   }
 
-  res.send({ result: 'successful', response })
+  return res.send({ result: 'successful', response })
 }
 
 // GET records API
