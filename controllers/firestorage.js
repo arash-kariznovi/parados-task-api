@@ -27,23 +27,17 @@ const uploadFile = async (req, res, next) => {
 
 // GET files API
 const showFiles = async (req, res, next) => {
-  const fileData = []
+  // Find all the prefixes and items.
+  const listRef = ref(storage, `files/`)
 
-  try {
-    // Find all the prefixes and items.
-    const listRef = ref(storage, `files/`)
+  const result = await listAll(listRef)
 
-    const result = await listAll(listRef)
+  const all = result.items.map(async (item) => {
+    const url = await getDownloadURL(ref(storage, `files/${item.name}`))
+    return { name: item.name, url }
+  })
 
-    const all = result.items.map(async (item) => {
-      const url = await getDownloadURL(ref(storage, `files/${item.name}`))
-      return { name: item.name, url }
-    })
-
-    fileData = await Promise.all(all)
-  } catch (error) {
-    res.status(400).json({ error: error.message })
-  }
+  const fileData = await Promise.all(all)
 
   return res.json({ res: fileData })
 }
