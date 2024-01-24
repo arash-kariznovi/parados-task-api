@@ -12,15 +12,12 @@ const db = getFirestore()
 const createText = async (req, res, next) => {
   const { text } = req.body
   const response = {}
-  try {
-    response = await db.collection('records').doc(uuid()).set({
-      text: text,
-      id: uuid(),
-      createdAt: new Date(),
-    })
-  } catch (error) {
-    res.status(400).send({ error: error.message })
-  }
+
+  response = await db.collection('records').doc(uuid()).set({
+    text: text,
+    id: uuid(),
+    createdAt: new Date(),
+  })
 
   return res.send({ result: 'successful', response })
 }
