@@ -23,7 +23,7 @@ const uploadFile = async (req, res, next) => {
       console.log('file is uploaded.')
     })
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).send({ error: error.message })
   }
 
   return res.json({ res: 'API for uploading files' })
@@ -46,7 +46,7 @@ const showFiles = async (req, res, next) => {
 
     fileData = await Promise.all(all)
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).send({ error: error.message })
   }
 
   return res.json({ res: fileData })
