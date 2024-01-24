@@ -11,24 +11,22 @@ const db = getFirestore()
 // POST a text API
 const createText = async (req, res, next) => {
   const { text } = req.body
-  const response = {}
 
-  response = await db.collection('records').doc(uuid()).set({
+  const response = await db.collection('records').doc(uuid()).set({
     text: text,
     id: uuid(),
     createdAt: new Date(),
   })
 
-  return res.send({ result: 'successful', response })
+  res.send({ result: 'successful', response })
 }
 
 // GET records API
 const readText = async (req, res, next) => {
-  const responses = []
-
   const texts = db.collection('records')
   const docs = await texts.get()
 
+  const responses = []
   docs.forEach((doc) => {
     responses.push(doc.data())
   })
