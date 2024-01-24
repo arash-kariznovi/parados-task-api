@@ -11,9 +11,9 @@ const db = getFirestore()
 // POST a text API
 const createText = async (req, res, next) => {
   const { text } = req.body
-
+  const response = {}
   try {
-    const response = await db.collection('records').doc(uuid()).set({
+    response = await db.collection('records').doc(uuid()).set({
       text: text,
       id: uuid(),
       createdAt: new Date(),
