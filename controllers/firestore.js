@@ -25,7 +25,6 @@ const createText = async (req, res, next) => {
 // GET records API
 const readText = async (req, res, next) => {
   try {
-    throw new Error()
     const texts = db.collection('records')
     const docs = await texts.get()
     const responses = []
