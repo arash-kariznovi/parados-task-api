@@ -24,17 +24,17 @@ const createText = async (req, res, next) => {
 
 // GET records API
 const readText = async (req, res, next) => {
-  try {
-    const texts = db.collection('records')
-    const docs = await texts.get()
-    const responses = []
-    docs.forEach((doc) => {
-      responses.push(doc.data())
-    })
-  } catch (err) {
-    const error = new HttpError('Unable to retreive records', 400)
-    return next(error)
-  }
+  // try {
+  const texts = db.collection('records')
+  const docs = await texts.get()
+  const responses = []
+  docs.forEach((doc) => {
+    responses.push(doc.data())
+  })
+  // } catch (err) {
+  //   const error = new HttpError('Unable to retreive records', 400)
+  //   return next(error)
+  // }
 
   res.status(200).json({ responses })
 }
